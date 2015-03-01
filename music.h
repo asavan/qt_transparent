@@ -5,7 +5,7 @@ class BassLib
 {
 public:
 	BassLib();
-	void play_music(int key) const;
+    void playMusic(int key) const;
 	~BassLib();
 private:
 	BassLib(const BassLib&);

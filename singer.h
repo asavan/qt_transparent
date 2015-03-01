@@ -1,17 +1,18 @@
+#pragma once
 #include <QObject>
 class BassLib;
 
-class MyClass : public QObject
+class QtBassLib : public QObject
 {
     Q_OBJECT
 public:
-    MyClass();
-    ~MyClass();
+    QtBassLib();
+    ~QtBassLib();
 public slots:
-    void getData(int k);
+    void playMusic(int k);
 private :
-    MyClass(const MyClass&);
-    MyClass& operator=(const MyClass&);
+    QtBassLib(const QtBassLib&);
+    QtBassLib& operator=(const QtBassLib&);
 	int music_prepare(int key);
 	BassLib* pl;
 };

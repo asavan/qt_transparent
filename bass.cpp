@@ -1,16 +1,15 @@
 ﻿#include "music.h"
 #include "bass.h"
 #include <string>
-#include <conio.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <stdexcept>
+// #include <stdexcept>
 
 #if defined _MSC_VER
 #pragma comment (lib, "bass.lib");
 #endif
-int init()
+static int init()
 {
 	BOOL res = BASS_Init(-1,44100,0,0,NULL);
 	if (!res)
@@ -28,7 +27,7 @@ int init()
 }
 
 
-void close_all_streams(std::vector<HSTREAM>& strms)
+static void close_all_streams(std::vector<HSTREAM>& strms)
 {
 	for(std::vector<HSTREAM>::iterator it = strms.begin();
 		it != strms.end(); ++it)
@@ -38,7 +37,7 @@ void close_all_streams(std::vector<HSTREAM>& strms)
 	strms.clear();
 }
 
-int setup_streams(const std::vector<std::string>& names, std::vector<HSTREAM>& strms)
+static int setup_streams(const std::vector<std::string>& names, std::vector<HSTREAM>& strms)
 {
 	if (!strms.empty()) return 2;
 	for(std::vector<std::string>::const_iterator it = names.begin();
@@ -76,7 +75,7 @@ static int play(int key, const std::vector<HSTREAM>& strms)
 	return res;
 }
 
-int test_setup(std::vector<HSTREAM>& strms)
+static int test_setup(std::vector<HSTREAM>& strms)
 {
 	std::ifstream ifs("keys.txt");
 	std::vector<std::string> strs;
@@ -87,7 +86,7 @@ int test_setup(std::vector<HSTREAM>& strms)
 		if (str.empty()) break;
 		strs.push_back(str);
 	}
-	return setup_streams(strs, strms);
+    return setup_streams(strs, strms);
 }
 
 
@@ -96,9 +95,16 @@ std::vector<HSTREAM> g_strms;
 
 BassLib::BassLib()
 {
-	int res = init();
-	if (res) throw std::logic_error("init fail");
-	test_setup(g_strms);
+    int res = init();
+    if (res) {
+        std::cout << "init fail" << std::endl;
+    }
+    // if (res) throw std::logic_error("init fail");
+    res = test_setup(g_strms);
+    if (res) {
+        std::cout << "streams fail" << std::endl;
+    }
+
 }
 
 BassLib::~BassLib()
@@ -107,7 +113,7 @@ BassLib::~BassLib()
 	BASS_Free();
 }
 
-void BassLib::play_music(int key) const
+void BassLib::playMusic(int key) const
 {
 	play(key, g_strms);
 }

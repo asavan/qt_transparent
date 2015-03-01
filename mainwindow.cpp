@@ -21,8 +21,7 @@ MainWindow::MainWindow(QApplication* app, QWidget *parent) :
     setCentralWidget(ui);
     ui->rootContext()->setContextProperty("mainwindow", this);
 
-    QObject* appRoot = qobject_cast<QObject*>(app);
-    bool res = QObject::connect(getEngine(), SIGNAL(quit()), appRoot, SLOT(quit()));
+    bool res = QObject::connect(getEngine(), SIGNAL(quit()), app, SLOT(quit()));
     if (!res)
     {
         exit(1);
@@ -37,10 +36,10 @@ MainWindow::~MainWindow()
 
 QObject* MainWindow::getEngine()
 {
-    return qobject_cast<QObject*>(ui->engine());
+    return ui->engine();
 }
 
 QObject* MainWindow::getRoot()
 {
-    return qobject_cast<QObject*>(ui->rootObject());
+    return ui->rootObject();
 }

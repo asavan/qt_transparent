@@ -1,24 +1,24 @@
 #include "singer.h"
 #include "music.h"
-#include <iostream>
+// #include <iostream>
 
-MyClass::MyClass()
+QtBassLib::QtBassLib()
 {
     pl = new BassLib();
 }
 
-MyClass::~MyClass()
+QtBassLib::~QtBassLib()
 {
     delete pl;
 }
 
-void MyClass::getData(int key) {
-    pl->play_music(music_prepare(key));
+void QtBassLib::playMusic(int key) {
+    pl->playMusic(music_prepare(key));
 }
 
-int MyClass::music_prepare(int key)
+int QtBassLib::music_prepare(int key)
 {
-    std::cout << key << std::endl;
+    // std::cout << key << std::endl;
 
     if (key == 1025)
     {

@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick widgets core gui declarative
+QT = declarative
 
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -15,9 +15,6 @@ LIBS += -LC:\Develop\qmltest\qmltest -lbass
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
-
-# Default rules for deployment.
-include(deployment.pri)
 
 HEADERS += \
     mainwindow.h \
