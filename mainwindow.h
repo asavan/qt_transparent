@@ -2,19 +2,16 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtDeclarative/QDeclarativeView>
-
+class QDeclarativeView;
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
-
 public:
     explicit MainWindow(QApplication* app, QWidget *parent = 0);
     ~MainWindow();
-    QObject* getEngine();
     QObject* getRoot();
-
 private:
+    MainWindow(const MainWindow&);
+    MainWindow& operator=(const MainWindow&);
     QDeclarativeView *ui;
 };
 

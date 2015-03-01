@@ -3,6 +3,8 @@
 #include <QGraphicsObject>
 #include <QDeclarativeEngine>
 #include <QApplication>
+#include <QtDeclarative/QDeclarativeView>
+
 MainWindow::MainWindow(QApplication* app, QWidget *parent) :
     QMainWindow(parent)
 {
@@ -21,10 +23,10 @@ MainWindow::MainWindow(QApplication* app, QWidget *parent) :
     setCentralWidget(ui);
     ui->rootContext()->setContextProperty("mainwindow", this);
 
-    bool res = QObject::connect(getEngine(), SIGNAL(quit()), app, SLOT(quit()));
+    bool res = QObject::connect(ui->engine(), SIGNAL(quit()), app, SLOT(quit()));
     if (!res)
     {
-        exit(1);
+        // exit(1);
     }
 }
 
@@ -32,11 +34,6 @@ MainWindow::~MainWindow()
 {
     //Удаляем QML
     delete ui;
-}
-
-QObject* MainWindow::getEngine()
-{
-    return ui->engine();
 }
 
 QObject* MainWindow::getRoot()
