@@ -16,13 +16,7 @@ static int init()
 	{
 		std::cout << "Can't initialize device" << std::endl;
 		return 1;
-	}
-	res = BASS_PluginLoad("basswma.dll", 0);
-	if (!res)
-	{
-		std::cout << "Can't initialize basswma.dll" << std::endl;
-		return 1;
-	}
+	}	
 	return 0;
 }
 
