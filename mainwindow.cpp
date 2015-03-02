@@ -13,7 +13,7 @@ MainWindow::MainWindow(QApplication* app, QWidget *parent) :
     setStyleSheet("background:transparent;");
 
     //Этот код уберет все внешние элементы формы
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool);
 
     //Включаем наш QML
     ui = new QDeclarativeView;
