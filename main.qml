@@ -1,18 +1,21 @@
 import QtQuick 2.3
-// import QtQuick.Controls 2.12
+import QtQuick.Controls 2.12
 
 
-Rectangle {//наша главная форма
+ApplicationWindow {//наша главная форма
     id: window
+    visible: true
     width: 500 //по ширине рисунка
     height: 340 //по высоте рисунка
     //Цвет записывается в формате ARGB и 00 означает, что форма будет прозрачной,
     //а ffffff означаеn белый цвет, хотя это и не важно
-    color: "#00ffffff"
+    // color: "#00ffffff"
+    color : "transparent"
+
+    flags: Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
 
     property int key;
     property string key_str;
-    signal dataRequired(int msg)
 
     MouseArea {
         id: mouseRegion
@@ -25,8 +28,8 @@ Rectangle {//наша главная форма
 
         onPositionChanged: {
             var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-            mainwindow.x = mainwindow.x+delta.x
-            mainwindow.y = mainwindow.y+delta.y
+            window.x = window.x+delta.x
+            window.y = window.y+delta.y
         }
     }
 
@@ -48,9 +51,9 @@ Rectangle {//наша главная форма
             key_str = event.text;
             key = event.key;
             if (key === Qt.Key_Escape) {
-                Qt.quit();
+                application.quit();
             }
-            dataRequired(key);
+            sound.playMusic(key);
             dialog.show(key_str);
         }
     }
