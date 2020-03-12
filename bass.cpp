@@ -1,17 +1,36 @@
-﻿#include "music.h"
+﻿#include <cassert>
+#include <cstddef>
+#include <limits>
+// #include <stdexcept>
+
+template <typename ContainerType>
+constexpr int size_as_int(const ContainerType &c) {
+    const auto size = c.size();  // if no auto, use `typename ContainerType::size_type`
+    assert(size <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    return static_cast<int>(size);
+}
+
+#include "music.h"
 #include "bass.h"
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <vector>
-// #include <stdexcept>
+
+
 
 #if defined _MSC_VER
 #pragma comment (lib, "bass.lib");
 #endif
-static int init()
+
+
+
+namespace  {
+
+
+int init()
 {
-	BOOL res = BASS_Init(-1,44100,0,0,NULL);
+    BOOL res = BASS_Init(-1,44100,0,0,nullptr);
 	if (!res)
 	{
 		std::cout << "Can't initialize device" << std::endl;
@@ -21,23 +40,21 @@ static int init()
 }
 
 
-static void close_all_streams(std::vector<HSTREAM>& strms)
+void close_all_streams(std::vector<HSTREAM>& strms)
 {
-	for(std::vector<HSTREAM>::iterator it = strms.begin();
-		it != strms.end(); ++it)
+    for(auto stream : strms)
 	{
-		BASS_StreamFree(*it);
+        BASS_StreamFree(stream);
 	}
 	strms.clear();
 }
 
-static int setup_streams(const std::vector<std::string>& names, std::vector<HSTREAM>& strms)
+int setup_streams(const std::vector<std::string>& names, std::vector<HSTREAM>& strms)
 {
 	if (!strms.empty()) return 2;
-	for(std::vector<std::string>::const_iterator it = names.begin();
-			it != names.end(); ++it)
+    for(const std::string& name : names)
 	{
-		HSAMPLE samp = BASS_SampleLoad(FALSE,it->c_str(), 0, 0, 5, 0 );
+        HSAMPLE samp = BASS_SampleLoad(FALSE, name.c_str(), 0, 0, 5, 0 );
 		if (!samp)
 		{
 			std::cout << "err" << std::endl;
@@ -47,7 +64,7 @@ static int setup_streams(const std::vector<std::string>& names, std::vector<HSTR
 		// HSTREAM str = BASS_StreamCreateFile(FALSE,it->c_str(),0,0,0);
 		if (!str)
 		{
-			std::cout << it->c_str() << std::endl;
+            std::cout << name << std::endl;
 			close_all_streams(strms);
 			return 1;
 		}
@@ -56,9 +73,9 @@ static int setup_streams(const std::vector<std::string>& names, std::vector<HSTR
 	return 0;
 }
 
-static int play(int key, const std::vector<HSTREAM>& strms)
+int play(int key, const std::vector<HSTREAM>& strms)
 {
-	if(key < 0 || key > strms.size())
+    if(key < 0 || key > size_as_int(strms))
 	{
         std::cout << key << " " << strms.size() << std::endl;
 		return 10;
@@ -69,7 +86,7 @@ static int play(int key, const std::vector<HSTREAM>& strms)
 	return res;
 }
 
-static int test_setup(std::vector<HSTREAM>& strms)
+int test_setup(std::vector<HSTREAM>& strms)
 {
 	std::ifstream ifs("keys.txt");
 	std::vector<std::string> strs;
@@ -86,6 +103,8 @@ static int test_setup(std::vector<HSTREAM>& strms)
 
 // наружу
 std::vector<HSTREAM> g_strms;
+
+}
 
 BassLib::BassLib()
 {

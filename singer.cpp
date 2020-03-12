@@ -2,15 +2,11 @@
 #include "music.h"
 // #include <iostream>
 
-QtBassLib::QtBassLib()
+QtBassLib::QtBassLib() : pl(new BassLib())
 {
-    pl = new BassLib();
 }
 
-QtBassLib::~QtBassLib()
-{
-    delete pl;
-}
+QtBassLib::~QtBassLib() = default;
 
 void QtBassLib::playMusic(int key) {
     pl->playMusic(music_prepare(key));
@@ -34,4 +30,3 @@ int QtBassLib::music_prepare(int key)
     }
     return beep;
 }
-

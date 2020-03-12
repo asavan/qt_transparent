@@ -1,23 +1,22 @@
 TEMPLATE = app
 
-QT = declarative
+QT += qml quick
+QT += widgets
 
 SOURCES += main.cpp \
-    mainwindow.cpp \
     singer.cpp \
     bass.cpp
 
 RESOURCES += qml.qrc
 
 
-LIBS += -LC:\Develop\qmltest\qmltest -lbass
+LIBS += -LC:\Develop\qt_transparent -lbass
 
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
 HEADERS += \
-    mainwindow.h \
     singer.h \
     music.h \
     bass.h

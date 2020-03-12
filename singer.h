@@ -1,5 +1,6 @@
 #pragma once
 #include <QObject>
+#include <memory>
 class BassLib;
 
 class QtBassLib : public QObject
@@ -11,8 +12,8 @@ public:
 public slots:
     void playMusic(int k);
 private :
-    QtBassLib(const QtBassLib&);
-    QtBassLib& operator=(const QtBassLib&);
+    QtBassLib(const QtBassLib&) = delete;
+    QtBassLib& operator=(const QtBassLib&) = delete;
 	int music_prepare(int key);
-	BassLib* pl;
+    std::unique_ptr<BassLib> pl;
 };

@@ -8,8 +8,8 @@ public:
     void playMusic(int key) const;
 	~BassLib();
 private:
-	BassLib(const BassLib&);
-	BassLib& operator=(const BassLib&);
+    BassLib(const BassLib&) = delete;
+    BassLib& operator=(const BassLib&) = delete;
 };
 
 enum kyes

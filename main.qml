@@ -1,4 +1,5 @@
-import QtQuick 1.0
+import QtQuick 2.3
+// import QtQuick.Controls 2.12
 
 
 Rectangle {//наша главная форма
@@ -24,8 +25,8 @@ Rectangle {//наша главная форма
 
         onPositionChanged: {
             var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-            mainwindow.pos = Qt.point(mainwindow.pos.x+delta.x,
-                                      mainwindow.pos.y+delta.y)
+            mainwindow.x = mainwindow.x+delta.x
+            mainwindow.y = mainwindow.y+delta.y
         }
     }
 
@@ -90,7 +91,3 @@ Rectangle {//наша главная форма
     // SystemPalette { id: activePalette }
 
 }
-
-
-
-
