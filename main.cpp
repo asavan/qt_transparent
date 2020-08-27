@@ -1,11 +1,12 @@
 #include "singer.h"
-#include <QApplication>
+#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication a(argc, argv);
     QQmlApplicationEngine engine;
     QtBassLib qBL;
     engine.load(QUrl("qrc:/main.qml"));
