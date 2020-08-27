@@ -1,6 +1,5 @@
 #include "singer.h"
 #include "music.h"
-// #include <iostream>
 
 QtBassLib::QtBassLib() : pl(new BassLib())
 {
@@ -14,8 +13,6 @@ void QtBassLib::playMusic(int key) {
 
 int QtBassLib::music_prepare(int key)
 {
-    // std::cout << key << std::endl;
-
     if (key == 1025)
     {
         return 7;

@@ -10,7 +10,7 @@ SOURCES += main.cpp \
 RESOURCES += qml.qrc
 
 
-LIBS += -LC:\Develop\qt_transparent -lbass
+LIBS += -LC:\Develop\qt_transparent\dependencies -lbass
 
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
@@ -19,4 +19,4 @@ QML_IMPORT_PATH =
 HEADERS += \
     singer.h \
     music.h \
-    bass.h
+    dependencies/bass.h

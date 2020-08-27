@@ -16,11 +16,11 @@ constexpr int size_as_int(const ContainerType& c) {
     return static_cast<int>(size);
 }
 
-#if defined _MSC_VER
-#pragma comment (lib, "bass.lib")
-#endif
+//#if defined _MSC_VER
+//#pragma comment (lib, "bass.lib")
+//#endif
 // do not move at the top. contains macros max that ruins everything
-#include "bass.h"
+#include "dependencies/bass.h"
 
 namespace {
     int init()
